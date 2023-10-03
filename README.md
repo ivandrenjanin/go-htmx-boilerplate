@@ -8,44 +8,36 @@
 
 ## 🗄 Project structure
 
-### /app
+### Directories
 
-**Folder with business logic only**. This directory doesn't care about what database driver we're using.
+1. **/cmd** entry points.
 
-- `/app/controller` folder for functional controller (used in routes)
-- `/app/dto` Data Transfer Objects(DTO) folder for transforming data before it is sent to API clients
-- `/app/model` folder for describeing business models and methods
-- `/app/repository` folder for performing database operations for models
+2. **/config** has structures which contains service config.
 
-### /cmd
-**Main applications for this project.**
+3. **/db** has seeders and method for connecting to the database.
 
-The directory name for each application should match the name of the executable you want to have (e.g., `/cmd/server` `/cmd/cron`).
-Don't put a lot of code in the application directory. If you think the code can be imported and used in other projects,
-then it should live in the `/pkg` directory.
+4. **/deploy** contains the container (Docker) package configuration and template(docker-compose) for project deployment.
 
-### /docs
+5. **/development** includes Docker and docker-compose files for setup linter.
 
-**Folder with API Documentation.**
+6. **/migrations** has files for run migrations.
 
-This directory contains config files for auto-generated API Docs by Swagger, screenshots
-and any other documents related to this project.
+7. **/models** includes structures describing data models.
 
-### /pkg
+8. **/repositories** contains methods for selecting entities from the database.
 
-**Folder with project-specific functionality.** This directory contains all the project-specific code tailored only for the business use case.
+9. **/requests** has structures describing the parameters of incoming requests, and validator.
 
-- `/pkg/config` folder for configuration functions
-- `/pkg/middleware` folder for middlewares (Fiber built-in and ours)
-- `/pkg/route` folder for describeing routes of the project
-- `/pkg/validator` folder with validation functions
+10. **/responses** includes structures describing the parameters of outgoing response.
 
-### /platform
+11. **/server** is the main project folder. This folder contains the executable server.go.
 
-**Folder with platform-level logic**. This directory contains all the platform-level logic that will build up the actual project,
-like setting up the database, logger instance and storing migrations, seeds(demo data).
+12. **/server/builders** contains builders for initializing entities.
 
-- `/platform/database` folder with database setup functions (by default, PostgreSQL)
-- `/platform/logger` folder with better logger setup functions (by default, Logrus)
-- `/platform/migrations` folder with migration files (used with [golang-migrate/migrate](https://github.com/golang-migrate/migrate) tool)
-- `/platform/seeds` folder with demo data for application rapid setup. mostly **sql** scripts
+13. **/server/handlers** contains request handlers.
+
+14. **/server/routes** has a file for configuring routes.
+
+15. **/services** contains methods for creating entities.
+
+16. **/tests**  includes tests and test data.
