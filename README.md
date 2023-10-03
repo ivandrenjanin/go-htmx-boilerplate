@@ -3,7 +3,7 @@
 - Rename `.env.example` to `.env`
 - Run project by this command:
   ```bash
-  make docker.run
+  make run
   ```
 
 ## 🗄 Project structure
