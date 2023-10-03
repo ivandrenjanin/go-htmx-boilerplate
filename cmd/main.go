@@ -1,8 +1,8 @@
 package main
 
 import (
-	"go-htmx/config"
-	"go-htmx/server"
+	"go-htmx/app/server"
+	"go-htmx/pkg/config"
 )
 
 func main() {

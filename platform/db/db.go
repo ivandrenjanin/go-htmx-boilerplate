@@ -2,7 +2,7 @@ package db
 
 import (
 	"fmt"
-	"go-htmx/config"
+	"go-htmx/pkg/config"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"

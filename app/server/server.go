@@ -1,8 +1,8 @@
 package server
 
 import (
-	"go-htmx/config"
-	"go-htmx/db"
+	"go-htmx/pkg/config"
+	"go-htmx/platform/db"
 	"log"
 
 	"github.com/labstack/echo/v4"
