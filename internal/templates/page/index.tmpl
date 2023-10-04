@@ -1,0 +1,10 @@
+{{ define "page/index.tmpl" }}
+{{ template "globals/top.tmpl" . }}
+{{ template "globals/header.tmpl" .}}
+<div>
+    <p>index page</p>
+    <h1>{{ .title }}</h1>
+</div>
+{{ template "globals/footer.tmpl" .}}
+{{ template "globals/bottom.tmpl" . }}
+{{ end }}

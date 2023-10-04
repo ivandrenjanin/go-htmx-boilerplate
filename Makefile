@@ -1,7 +1,7 @@
 .PHONY: clean test security build run
 
 APP_NAME = go-echo-htmx-boilerplate
-BUILD_DIR = ./build
+BUILD_DIR = ./bin
 
 clean:
 	rm -rf $(BUILD_DIR)/*
