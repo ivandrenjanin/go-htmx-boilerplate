@@ -23,6 +23,7 @@ func Init(cfg *config.Config) {
 
 	router := gin.Default()
 	router.LoadHTMLGlob("internal/templates/**/*.tmpl")
+	router.Static("/assets", "./assets")
 
 	// Attach middlewares
 	router.Use(gzip.Gzip(gzip.DefaultCompression))

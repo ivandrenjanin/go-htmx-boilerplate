@@ -5,7 +5,7 @@
 
 # Dependencies
 vendor
-
+node_modules/
 # Test
 *.out
 
