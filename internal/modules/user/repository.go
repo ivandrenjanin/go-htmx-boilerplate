@@ -47,7 +47,10 @@ func (r *userRepository) GetUser(id string) (*GetUserResponseDTO, error) {
 	rows, err := r.db.Query(statement, id)
 
 	for rows.Next() {
-		scanData(rows, &user)
+		err := scanData(rows, &user)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if err != nil {
@@ -77,7 +80,10 @@ func (r *userRepository) GetUsersPaginated(page int, limit int) ([]*GetUserRespo
 
 	for rows.Next() {
 		var user GetUserResponseDTO
-		scanData(rows, &user)
+		err := scanData(rows, &user)
+		if err != nil {
+			return nil, err
+		}
 		users = append(users, &user)
 	}
 
