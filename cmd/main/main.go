@@ -1,12 +1,9 @@
 package main
 
 import (
-	"go-htmx/internal/server"
-	"go-htmx/pkg/config"
+	"go-htmx/internal/app"
 )
 
 func main() {
-	cfg := config.NewConfig()
-
-	server.Init(cfg)
+	app.Init()
 }

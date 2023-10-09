@@ -3,7 +3,8 @@ package server
 import (
 	"context"
 	"fmt"
-	"go-htmx/pkg/config"
+	"go-htmx/internal/locator"
+	"go-htmx/internal/route"
 	"log"
 	"net/http"
 	"os"
@@ -15,7 +16,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Init(cfg *config.Config) {
+func Init(l locator.Locator) {
+	cfg := l.GetConfig()
 
 	if cfg.App.Env == "PRODUCTION" {
 		gin.SetMode(gin.ReleaseMode)
@@ -29,25 +31,8 @@ func Init(cfg *config.Config) {
 	router.Use(gzip.Gzip(gzip.DefaultCompression))
 
 	// Attach routes
-	static := router.Group("")
-	static.GET("/", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "page/index.tmpl", gin.H{
-			"title": "Hello, world!",
-		})
-	})
-
-	static.GET("/user", func(c *gin.Context) {
-		c.HTML(http.StatusOK, "page/user.tmpl", gin.H{
-			"title": "Hello, world!",
-		})
-	})
-
-	api := router.Group("/api/v1")
-	api.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{
-			"message": "Hello, world!",
-		})
-	})
+	route.StaticPublicHandlers(router, l)
+	route.ApiHandlers(router, l)
 
 	rwTime := 10 * time.Second
 

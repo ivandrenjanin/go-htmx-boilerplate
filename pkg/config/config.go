@@ -18,6 +18,7 @@ type DatabaseConfig struct {
 	User     string
 	Password string
 	DBName   string
+	Sslmode  string
 }
 
 type Config struct {
@@ -52,5 +53,6 @@ func loadDatabaseConfig() DatabaseConfig {
 		User:     os.Getenv("DB_USER"),
 		Password: os.Getenv("DB_PASSWORD"),
 		DBName:   os.Getenv("DB_NAME"),
+		Sslmode:  os.Getenv("DB_SSL_MODE"),
 	}
 }
