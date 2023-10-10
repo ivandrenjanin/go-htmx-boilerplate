@@ -9,6 +9,7 @@ type UserRepository interface {
 	CreateUser(dto *CreateUserRequestDTO) error
 	GetUser(id string) (*GetUserResponseDTO, error)
 	GetUsersPaginated(page int, limit int) ([]*GetUserResponseDTO, error)
+	GetUserByEmail(email string) (*GetUserResponseDTO, error)
 }
 
 type userRepository struct {
@@ -33,6 +34,7 @@ func (r *userRepository) GetUser(id string) (*GetUserResponseDTO, error) {
 		id, 
 		name, 
 		email, 
+		password,
 		created_at, 
 		updated_at
 	FROM 
@@ -66,6 +68,7 @@ func (r *userRepository) GetUsersPaginated(page int, limit int) ([]*GetUserRespo
 		id, 
 		name, 
 		email, 
+		password,
 		created_at, 
 		updated_at
 	FROM 
@@ -80,6 +83,7 @@ func (r *userRepository) GetUsersPaginated(page int, limit int) ([]*GetUserRespo
 
 	for rows.Next() {
 		var user GetUserResponseDTO
+
 		err := scanData(rows, &user)
 		if err != nil {
 			return nil, err
@@ -92,6 +96,40 @@ func (r *userRepository) GetUsersPaginated(page int, limit int) ([]*GetUserRespo
 	}
 
 	return users, nil
+}
+
+func (r *userRepository) GetUserByEmail(email string) (*GetUserResponseDTO, error) {
+	statement := `
+	SELECT 
+		id, 
+		name, 
+		email, 
+		password,
+		created_at, 
+		updated_at
+	FROM 
+		users 
+	WHERE 
+		email = $1 
+		AND 
+		deleted_at IS NULL;`
+
+	var user GetUserResponseDTO
+
+	rows, err := r.db.Query(statement, email)
+
+	for rows.Next() {
+		err := scanData(rows, &user)
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	if err != nil {
+		return nil, err
+	}
+
+	return &user, nil
 }
 
 func scanData(rows *sql.Rows, dest interface{}) error {

@@ -3,13 +3,21 @@ package config
 import "os"
 
 type AppConfig struct {
-	Env  string
-	Port string
+	Host          string
+	Env           string
+	Port          string
+	AccessSecret  string
+	RefreshSecret string
+	CSRFSecret    string
 }
 
 func loadAppConfig() AppConfig {
 	return AppConfig{
-		Env:  os.Getenv("ENV"),
-		Port: os.Getenv("PORT"),
+		Host:          os.Getenv("APP_HOST"),
+		Env:           os.Getenv("ENV"),
+		Port:          os.Getenv("PORT"),
+		AccessSecret:  os.Getenv("ACCESS_SECRET"),
+		RefreshSecret: os.Getenv("REFRESH_SECRET"),
+		CSRFSecret:    os.Getenv("CSRF_SECRET"),
 	}
 }

@@ -13,5 +13,8 @@ tailwind:
 build: tailwind
 	CGO_ENABLED=0  go build -ldflags="-w -s" -o $(BUILD_DIR)/$(APP_NAME) ./cmd/main/main.go
 
+dev: tailwind
+	air -c .air.toml 
+
 run: build
 	$(BUILD_DIR)/$(APP_NAME)

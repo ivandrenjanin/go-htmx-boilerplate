@@ -9,6 +9,19 @@ require (
 )
 
 require (
+	github.com/antonlindstrom/pgstore v0.0.0-20200229204646-b08ebf1105e0 // indirect
+	github.com/danielkov/gin-helmet v0.0.0-20171108135313-1387e224435e // indirect
+	github.com/dchest/uniuri v0.0.0-20160212164326-8902c56451e9 // indirect
+	github.com/gin-contrib/cors v1.4.0 // indirect
+	github.com/gin-contrib/sessions v0.0.5 // indirect
+	github.com/gorilla/context v1.1.1 // indirect
+	github.com/gorilla/securecookie v1.1.1 // indirect
+	github.com/gorilla/sessions v1.2.1 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	github.com/utrack/gin-csrf v0.0.0-20190424104817-40fb8d2c8fca // indirect
+)
+
+require (
 	github.com/bytedance/sonic v1.10.1 // indirect
 	github.com/chenzhuoyu/base64x v0.0.0-20230717121745-296ad89f973d // indirect
 	github.com/chenzhuoyu/iasm v0.9.0 // indirect

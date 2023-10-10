@@ -14,4 +14,12 @@ func StaticPublicHandlers(r *gin.Engine, locator locator.Locator) {
 			"title": "Hello, world!",
 		})
 	})
+
+	staticPrivate := r.Group("/app")
+
+	staticPrivate.GET("/", func(c *gin.Context) {
+		c.HTML(200, "page/app.tmpl", gin.H{
+			"title": "Hello, world!",
+		})
+	})
 }
