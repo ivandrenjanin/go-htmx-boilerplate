@@ -18,7 +18,7 @@ func Init(cfg *config.Config) (*sql.DB, error) {
 		cfg.Database.Sslmode,
 	)
 
-	db, err := sql.Open("postgres", dsn)
+	db, err := sql.Open(cfg.Database.Driver, dsn)
 
 	if err != nil {
 		return nil, err

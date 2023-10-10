@@ -9,6 +9,7 @@ type DatabaseConfig struct {
 	Password string
 	DBName   string
 	Sslmode  string
+	Driver   string
 }
 
 func loadDatabaseConfig() DatabaseConfig {
@@ -19,5 +20,6 @@ func loadDatabaseConfig() DatabaseConfig {
 		Password: os.Getenv("DB_PASSWORD"),
 		DBName:   os.Getenv("DB_NAME"),
 		Sslmode:  os.Getenv("DB_SSL_MODE"),
+		Driver:   os.Getenv("DB_DRIVER"),
 	}
 }
