@@ -5,9 +5,9 @@ tmp_dir = "tmp"
 [build]
   args_bin = []
   bin = "./bin/go-echo-htmx-boilerplate"
-  cmd = "go build -o ./bin/go-echo-htmx-boilerplate ./cmd/main/main.go"
+  cmd = "godotenv -f .env go build -o ./bin/go-echo-htmx-boilerplate ./cmd/main/main.go"
   delay = 1
-  exclude_dir = ["assets", "tmp", "vendor", "testdata", "node_modules", "bin"]
+  exclude_dir = ["assets", "tmp", "vendor", "testdata", "node_modules", "bin", "client"]
   exclude_file = []
   exclude_regex = ["_test.go"]
   exclude_unchanged = false

@@ -3,6 +3,8 @@ package user
 import (
 	"database/sql"
 	"reflect"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 type UserRepository interface {
@@ -19,7 +21,13 @@ type userRepository struct {
 func (r *userRepository) CreateUser(dto *CreateUserRequestDTO) error {
 	statement := `INSERT INTO users (name, email, password) VALUES ($1, $2, $3)`
 
-	_, err := r.db.Exec(statement, dto.Name, dto.Email, dto.Password)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(dto.Password), bcrypt.DefaultCost)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = r.db.Exec(statement, dto.Name, dto.Email, string(hashedPassword))
 
 	if err != nil {
 		return err

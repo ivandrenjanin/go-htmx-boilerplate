@@ -20,7 +20,6 @@
   - `/modules` business/domain logic
   - `/route` endpoint routers
   - `/server` composing server logic, http, ws etc...
-  - `/templates` html templates for rendering
 - `/pkg` shared packages that can be used by multiple apps
   - `/config` app configuration and env reading
   - `/db` all db connections, eg. `pg`, `redis`, etc...

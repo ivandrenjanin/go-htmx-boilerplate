@@ -3,9 +3,8 @@ package server
 import (
 	"context"
 	"fmt"
+	"go-htmx/internal/api"
 	"go-htmx/internal/locator"
-	"go-htmx/internal/route"
-	"go-htmx/pkg/session"
 	"log"
 	"net/http"
 	"os"
@@ -17,7 +16,6 @@ import (
 	"github.com/gin-contrib/cors"
 	"github.com/gin-contrib/gzip"
 	"github.com/gin-gonic/gin"
-	csrf "github.com/utrack/gin-csrf"
 )
 
 func Init(l locator.Locator) {
@@ -27,45 +25,21 @@ func Init(l locator.Locator) {
 		gin.SetMode(gin.ReleaseMode)
 	}
 
-	ses, err := session.NewSessionMiddleware(l.GetDB(), cfg)
-
-	if err != nil {
-		log.Fatalf("session init error: %s\n", err)
-	}
-
 	r := gin.Default()
-
-	// Attach middlewares
-	r.Use(ses)
-
-	r.Use(csrf.Middleware(csrf.Options{
-		IgnoreMethods: []string{"GET", "HEAD", "OPTIONS"},
-		Secret:        cfg.App.AccessSecret,
-		ErrorFunc: func(c *gin.Context) {
-			c.String(400, "CSRF token mismatch")
-			c.Abort()
-		}}))
 
 	corsConfig := cors.DefaultConfig()
 	corsConfig.AllowOrigins = []string{cfg.App.Host}
+	corsConfig.AllowCredentials = true
 
 	r.Use(cors.New(corsConfig))
 	r.Use(gzip.Gzip(gzip.DefaultCompression))
 	r.Use(helmet.Default())
-	r.LoadHTMLGlob("internal/templates/**/*.tmpl")
-	r.Static("/assets", "./assets")
 
-	if cfg.App.Env != "PRODUCTION" {
-		r.GET("/csrf", func(c *gin.Context) {
-			c.JSON(200, gin.H{
-				"csrf_token": csrf.GetToken(c),
-			})
-		})
-	}
+	grp := r.Group("/api/v1")
 
 	// Attach routes
-	route.StaticPublicHandlers(r, l)
-	route.ApiHandlers(r, l)
+	api.AuthHandlers(grp, l)
+	api.UserHandlers(grp, l)
 
 	rwTime := 10 * time.Second
 

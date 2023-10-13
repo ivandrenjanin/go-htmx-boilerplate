@@ -13,3 +13,11 @@ node_modules/
 bin/
 tmp/
 assets/css/tailwind.css
+
+node_modules
+/build
+/.svelte-kit
+/package
+.env
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
