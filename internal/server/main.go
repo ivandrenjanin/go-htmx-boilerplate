@@ -35,11 +35,11 @@ func Init(l locator.Locator) {
 	r.Use(gzip.Gzip(gzip.DefaultCompression))
 	r.Use(helmet.Default())
 
-	grp := r.Group("/api/v1")
+	apiGrp := r.Group("/api/v1")
 
 	// Attach routes
-	api.AuthHandlers(grp, l)
-	api.UserHandlers(grp, l)
+	api.AuthHandlers(apiGrp, l)
+	api.UserHandlers(apiGrp, l)
 
 	rwTime := 10 * time.Second
 
